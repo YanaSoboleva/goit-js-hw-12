@@ -3,6 +3,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 const galleryContainer = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more');
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -10,17 +11,23 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 
 export function showLoader() {
-  if (loader) {
-    loader.classList.add('is-active'); 
-    loader.classList.remove('hidden');
-  }
+  if (loader) loader.classList.remove('hidden');
 }
 
 export function hideLoader() {
-  if (loader) {
-    loader.classList.remove('is-active');
-    loader.classList.add('hidden');
-  }
+  if (loader) loader.classList.add('hidden');
+}
+
+export function showLoadMoreButton() {
+  loadMoreBtn?.classList.remove('hidden');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn?.classList.add('hidden');
+}
+
+export function clearGallery() {
+  if (galleryContainer) galleryContainer.innerHTML = '';
 }
 
 export function createGallery(images) {
@@ -44,12 +51,6 @@ export function createGallery(images) {
     )
     .join('');
 
-  galleryContainer.innerHTML = markup;
+  galleryContainer.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
-}
-
-export function clearGallery() {
-  if (galleryContainer) {
-    galleryContainer.innerHTML = '';
-  }
-}
+};
